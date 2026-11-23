@@ -1,0 +1,752 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#232326" />
+    <script>
+      try {
+        var t = localStorage.getItem("theme");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+    <title>Enji · 蘇格拉底對話教室</title>
+    <meta
+      name="description"
+      content="Enji是一個以蘇格拉底式詰問為核心的課堂平台：學生與 AI 蘇格拉底一對一對話，老師開課堂、發議題、看逐人與全班報告。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Enji · 蘇格拉底對話教室" />
+    <meta property="og:description" content="語音提問、即時詰問、班級立場報告——一場全班都能參與的思辨活動。" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23251f16'/%3E%3Ctext x='16' y='22' font-family='serif' font-size='16' fill='%23fffdf8' text-anchor='middle'%3E詰%3C/text%3E%3C/svg%3E"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --paper: #ffffff;
+        --card: #faf9f6;
+        --paper-deep: #f1efe9;
+        --ink: #161514;
+        --ink-soft: #55514a;
+        --ink-faint: #6d6862;
+        --line: rgb(22 21 20 / 0.13);
+        --line-strong: rgb(22 21 20 / 0.28);
+        --ember: #c1302a;
+        --ember-deep: #9c2420;
+        --on-ember: #ffffff;
+        --ochre: #a57a14;
+        --ochre-wash: rgb(206 174 98 / 0.22);
+        --stance-2: #2f5d8a;
+        --moss: #5c6b2f;
+        --stance-5: #7a4a8c;
+        --serif: "Iowan Old Style", "Songti TC", "Noto Serif TC", Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", Arial,
+          sans-serif;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          color-scheme: dark;
+          --paper: #2c2c30;
+          --card: #323236;
+          --paper-deep: #232326;
+          --ink: #f2efe8;
+          --ink-soft: #b9b4a8;
+          --ink-faint: #a5a096;
+          --line: rgb(242 239 232 / 0.16);
+          --line-strong: rgb(242 239 232 / 0.34);
+          --ember: #f19a92;
+          --ember-deep: #c1302a;
+          --on-ember: #232326;
+          --ochre: #ceae62;
+          --ochre-wash: rgb(206 174 98 / 0.12);
+          --stance-2: #7fb0dc;
+          --moss: #aeba84;
+          --stance-5: #c09bd0;
+        }
+      }
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --paper: #2c2c30;
+        --card: #323236;
+        --paper-deep: #232326;
+        --ink: #f2efe8;
+        --ink-soft: #b9b4a8;
+        --ink-faint: #a5a096;
+        --line: rgb(242 239 232 / 0.16);
+        --line-strong: rgb(242 239 232 / 0.34);
+        --ember: #f19a92;
+        --ember-deep: #c1302a;
+        --on-ember: #232326;
+        --ochre: #ceae62;
+        --ochre-wash: rgb(206 174 98 / 0.12);
+        --stance-2: #7fb0dc;
+        --moss: #aeba84;
+        --stance-5: #c09bd0;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        -webkit-text-size-adjust: 100%;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 17px;
+        line-height: 1.7;
+        overflow-wrap: anywhere;
+      }
+      a {
+        color: inherit;
+      }
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--ember);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+      @media (min-width: 720px) {
+        .wrap {
+          padding: 0 32px;
+        }
+      }
+      .skip {
+        position: absolute;
+        left: -9999px;
+      }
+      .skip:focus {
+        left: 16px;
+        top: 12px;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 6px 12px;
+        z-index: 10;
+      }
+
+      header.top {
+        border-bottom: 1px solid var(--line);
+      }
+      header.top .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-height: 64px;
+        flex-wrap: wrap;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--serif);
+        font-weight: 600;
+        font-size: 18px;
+        text-decoration: none;
+      }
+      .seal {
+        display: inline-grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--ember);
+        color: var(--on-ember);
+        font-size: 16px;
+        flex: none;
+      }
+      .langs {
+        display: flex;
+        gap: 4px;
+        font-size: 14px;
+      }
+      .langs button {
+        font: inherit;
+        color: var(--ink-soft);
+        background: none;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 4px 10px;
+        cursor: pointer;
+      }
+      .langs button[aria-pressed="true"] {
+        color: var(--ink);
+        border-color: var(--line-strong);
+      }
+
+      .hero {
+        padding: 72px 0 56px;
+        border-bottom: 1px solid var(--line);
+      }
+      .eyebrow {
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ember);
+        font-weight: 600;
+        margin: 0 0 16px;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--serif);
+        font-weight: 600;
+        line-height: 1.25;
+        margin: 0;
+      }
+      h1 {
+        font-size: clamp(34px, 7vw, 60px);
+        letter-spacing: -0.01em;
+        max-width: 18ch;
+      }
+      .lede {
+        font-size: clamp(18px, 2.2vw, 21px);
+        color: var(--ink-soft);
+        max-width: 40em;
+        margin: 20px 0 32px;
+      }
+      .ctas {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        padding: 0 20px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+        border: 1px solid var(--ink);
+      }
+      .btn.primary {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .btn.primary:hover {
+        background: var(--ember-deep);
+        border-color: var(--ember-deep);
+        color: #fff;
+      }
+      .btn.ghost:hover {
+        background: var(--paper-deep);
+      }
+
+      .quote {
+        margin: 48px 0 0;
+        padding: 20px 24px;
+        border-left: 3px solid var(--ember);
+        background: var(--card);
+        max-width: 40em;
+      }
+      .quote p {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: 19px;
+      }
+      .quote .who {
+        margin-top: 8px;
+        font-family: var(--sans);
+        font-size: 14px;
+        color: var(--ink-faint);
+      }
+
+      section.block {
+        padding: 64px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .block-head {
+        margin-bottom: 32px;
+        max-width: 40em;
+      }
+      .block-head h2 {
+        font-size: clamp(26px, 4vw, 36px);
+      }
+      .block-head p {
+        color: var(--ink-soft);
+        margin: 12px 0 0;
+      }
+
+      ol.steps {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 16px;
+        counter-reset: step;
+      }
+      @media (min-width: 820px) {
+        ol.steps {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      ol.steps li {
+        counter-increment: step;
+        border: 1px solid var(--line-strong);
+        border-radius: 14px;
+        padding: 24px;
+        background: var(--paper);
+      }
+      ol.steps li::before {
+        content: counter(step, decimal-leading-zero);
+        display: block;
+        font-family: var(--serif);
+        font-size: 28px;
+        color: var(--ember);
+        margin-bottom: 8px;
+      }
+      ol.steps h3 {
+        font-size: 20px;
+        margin-bottom: 6px;
+      }
+      ol.steps p,
+      .card p {
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 16px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+      @media (min-width: 620px) {
+        .grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (min-width: 960px) {
+        .grid.three {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 22px;
+      }
+      .card h3 {
+        font-size: 18px;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex: none;
+        background: var(--ember);
+      }
+      .dot.c2 {
+        background: var(--stance-2);
+      }
+      .dot.c3 {
+        background: var(--ochre);
+      }
+      .dot.c4 {
+        background: var(--moss);
+      }
+      .dot.c5 {
+        background: var(--stance-5);
+      }
+
+      .roles {
+        display: grid;
+        gap: 16px;
+      }
+      @media (min-width: 820px) {
+        .roles {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .role {
+        border: 1px solid var(--line-strong);
+        border-radius: 14px;
+        padding: 24px;
+      }
+      .role h3 {
+        font-size: 22px;
+        margin-bottom: 12px;
+      }
+      .role ul {
+        margin: 0;
+        padding-left: 1.2em;
+        color: var(--ink-soft);
+      }
+      .role li + li {
+        margin-top: 6px;
+      }
+
+      .stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        list-style: none;
+        margin: 0 0 24px;
+        padding: 0;
+      }
+      .stack li {
+        border: 1px solid var(--line-strong);
+        border-radius: 999px;
+        padding: 4px 14px;
+        font-size: 14px;
+      }
+      .note {
+        background: var(--ochre-wash);
+        border-radius: 12px;
+        padding: 18px 20px;
+        max-width: 44em;
+        margin: 0;
+      }
+
+
+      footer {
+        padding: 40px 0 56px;
+        font-size: 14px;
+        color: var(--ink-faint);
+      }
+      footer .wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 24px;
+        justify-content: space-between;
+      }
+      footer nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .btn {
+          transition:
+            background-color 0.15s,
+            border-color 0.15s,
+            color 0.15s;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#main" data-i18n="skip">跳到主要內容</a>
+
+    <header class="top">
+      <div class="wrap">
+        <a class="brand" href="#main"><span class="seal" aria-hidden="true">詰</span><span data-i18n="brand">Enji · 蘇格拉底對話教室</span></a>
+        <div class="langs" role="group" aria-label="Language">
+          <button type="button" data-lang="zh-Hant" lang="zh-Hant" aria-pressed="true">中文</button>
+          <button type="button" data-lang="en" lang="en" aria-pressed="false">English</button>
+          <button type="button" data-lang="es" lang="es" aria-pressed="false">Español</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero">
+        <div class="wrap">
+          <p class="eyebrow" data-i18n="eyebrow">NTNU 軟體工程 · 2026 · 第四組</p>
+          <h1 data-i18n="title">讓全班都能參與的思辨對話</h1>
+          <p class="lede" data-i18n="lede">
+            Enji（詰問）是一個以蘇格拉底式詰問為核心的課堂平台。學生和 AI 蘇格拉底一對一對話，蘇格拉底不給答案，只用追問幫你把想法想清楚；老師開課堂、發議題，課後看到每位學生和全班的思辨報告。
+          </p>
+          <div class="ctas">
+            <a class="btn primary" href="https://socrates.g36maid.dev/" data-i18n="cta_try">進入教室</a>
+            <a class="btn ghost" href="https://github.com/ntnu-swe-2026-team4/socrates-classroom" data-i18n="cta_code">在 GitHub 上看原始碼</a>
+          </div>
+          <blockquote class="quote">
+            <p data-i18n="quote">「未經檢驗的人生不值得活。」</p>
+            <p class="who" data-i18n="quote_who">蘇格拉底，《申辯篇》38a</p>
+          </blockquote>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="how">
+        <div class="wrap">
+          <div class="block-head">
+            <h2 id="how" data-i18n="how_title">一堂課怎麼進行</h2>
+            <p data-i18n="how_lede">從開班到報告，一場活動只需要三步。</p>
+          </div>
+          <ol class="steps">
+            <li>
+              <h3 data-i18n="step1_t">老師開課堂、發議題</h3>
+              <p data-i18n="step1_p">建立班級並分享邀請碼或 QR code，從議題集挑題、自己寫題，或請 AI 產生候選議題，然後開始一場活動。</p>
+            </li>
+            <li>
+              <h3 data-i18n="step2_t">學生與蘇格拉底對話</h3>
+              <p data-i18n="step2_p">學生用打字或語音發言，蘇格拉底每次只回幾句、以問句結尾，引導學生檢視自己的前提與推論。</p>
+            </li>
+            <li>
+              <h3 data-i18n="step3_t">課後看報告</h3>
+              <p data-i18n="step3_p">活動結束後自動產生報告：每位學生的論點總結與思辨力六角圖，以及把全班立場畫成星圖的群體報告。</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="features">
+        <div class="wrap">
+          <div class="block-head">
+            <h2 id="features" data-i18n="feat_title">主要功能</h2>
+          </div>
+          <div class="grid three">
+            <div class="card">
+              <h3><span class="dot" aria-hidden="true"></span><span data-i18n="f1_t">蘇格拉底式對話</span></h3>
+              <p data-i18n="f1_p">即時串流的一對一對話。蘇格拉底只追問、不說教，對話紀錄永久保存，斷線重連就能接著聊。</p>
+            </div>
+            <div class="card">
+              <h3><span class="dot c2" aria-hidden="true"></span><span data-i18n="f2_t">語音與 3D 頭像</span></h3>
+              <p data-i18n="f2_p">可以用說的提問，也能讓蘇格拉底把回答念出來；角落的 3D 半身像會跟著語氣變換表情、對嘴說話。</p>
+            </div>
+            <div class="card">
+              <h3><span class="dot c3" aria-hidden="true"></span><span data-i18n="f3_t">順帶一問與名詞查詢</span></h3>
+              <p data-i18n="f3_p">遇到不懂的名詞，選取就能查；想問背景知識，開側欄「順帶一問」，不會打斷主對話，也不會算進報告。</p>
+            </div>
+            <div class="card">
+              <h3><span class="dot c4" aria-hidden="true"></span><span data-i18n="f4_t">思辨力六角圖</span></h3>
+              <p data-i18n="f4_p">個人報告用六項思辨力目標呈現表現，每項標出達成程度、一句依據與對應的對話行號，不是打分數。</p>
+            </div>
+            <div class="card">
+              <h3><span class="dot c5" aria-hidden="true"></span><span data-i18n="f5_t">立場星圖</span></h3>
+              <p data-i18n="f5_p">把全班的立場畫在一到三條軸上，可以旋轉、自動分群，點一個點就能看那位學生在各軸上的想法。</p>
+            </div>
+            <div class="card">
+              <h3><span class="dot" aria-hidden="true"></span><span data-i18n="f6_t">教室社群與行事曆</span></h3>
+              <p data-i18n="f6_p">每間教室有公告、討論串與成員名單，也有月／週行事曆，老師能把議題排成討論，時間到直接開始。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="roles">
+        <div class="wrap">
+          <div class="block-head">
+            <h2 id="roles" data-i18n="roles_title">給老師，也給學生</h2>
+          </div>
+          <div class="roles">
+            <div class="role">
+              <h3 data-i18n="teacher_t">老師</h3>
+              <ul>
+                <li data-i18n="teacher_1">建立班級，用邀請碼、連結或 QR code 邀請學生</li>
+                <li data-i18n="teacher_2">先用測試模式自己跑一遍，確認議題效果</li>
+                <li data-i18n="teacher_3">看全班報告與每位學生的分析和認真度</li>
+                <li data-i18n="teacher_4">可以接上自己的 AI 模型金鑰，並設定每月額度提醒</li>
+              </ul>
+            </div>
+            <div class="role">
+              <h3 data-i18n="student_t">學生</h3>
+              <ul>
+                <li data-i18n="student_1">用邀請碼加入班級，或不註冊直接以訪客身分參加活動</li>
+                <li data-i18n="student_2">隨時和蘇格拉底自由對話，不一定要在課堂上</li>
+                <li data-i18n="student_3">在「我的報告」回顧自己在每個班的表現</li>
+                <li data-i18n="student_4">介面支援中文、英文與西班牙文，也有深色模式</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="tech">
+        <div class="wrap">
+          <div class="block-head">
+            <h2 id="tech" data-i18n="tech_title">技術與隱私</h2>
+            <p data-i18n="tech_lede">整個系統是一個部署在 Cloudflare Workers 上的應用：同一個 Worker 同時提供 API 和前端頁面，每條對話由一個 Durable Object 負責。</p>
+          </div>
+          <ul class="stack">
+            <li>Cloudflare Workers</li>
+            <li>Durable Objects</li>
+            <li>D1 (SQLite)</li>
+            <li>Workers AI</li>
+            <li>Hono</li>
+            <li>React 19</li>
+            <li>TanStack Router / Query</li>
+            <li>Tailwind CSS v4</li>
+            <li>three.js</li>
+            <li>TypeScript</li>
+            <li>Vitest</li>
+            <li>GitHub Actions</li>
+          </ul>
+          <p class="note" data-i18n="privacy">
+            學生的對話內容很敏感。平台預設使用的模型服務都採零資料保留（ZDR）政策，AI Gateway 的記錄與快取保持關閉，系統日誌不含任何對話內容。
+          </p>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <span data-i18n="footer">© 2026 NTNU 軟體工程第四組</span>
+        <nav aria-label="Links">
+          <a href="https://socrates.g36maid.dev/" data-i18n="nav_app">進入教室</a>
+          <a href="https://github.com/ntnu-swe-2026-team4/socrates-classroom">GitHub</a>
+          <a href="https://github.com/ntnu-swe-2026-team4/socrates-classroom/tree/main/docs" data-i18n="nav_docs">文件</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var dict = {
+          en: {
+            skip: "Skip to main content",
+            brand: "Enji · Socrates Classroom",
+            eyebrow: "NTNU Software Engineering · 2026 · Team 4",
+            title: "Philosophical dialogue the whole class can join",
+            lede: "Enji is a teaching platform built around Socratic questioning. Each student talks one-on-one with an AI Socrates, who never hands out answers and only asks the questions that help you think clearly. Teachers open classrooms, post topics, and get a report on every student and the class as a whole.",
+            cta_try: "Open the classroom",
+            cta_code: "View the source on GitHub",
+            quote: "“The unexamined life is not worth living.”",
+            quote_who: "Socrates, Apology 38a",
+            how_title: "How a class runs",
+            how_lede: "From opening a class to reading the report, an activity takes three steps.",
+            step1_t: "The teacher opens a class and a topic",
+            step1_p: "Create a classroom and share its invite code or QR code. Pick a topic from the topic set, write your own, or let the AI suggest some, then start an activity.",
+            step2_t: "Students talk with Socrates",
+            step2_p: "Students type or speak. Socrates replies in a few sentences and always ends with a question, leading them to examine their own premises and reasoning.",
+            step3_t: "Read the reports afterwards",
+            step3_p: "When the activity ends, reports are generated: each student gets an argument summary and a critical-thinking hexagon, and the class report maps everyone's stance on a star map.",
+            feat_title: "Features",
+            f1_t: "Socratic dialogue",
+            f1_p: "Streamed one-on-one dialogue. Socrates questions rather than lectures. Transcripts are kept, so a dropped connection picks up where it left off.",
+            f2_t: "Voice and a 3D avatar",
+            f2_p: "Ask out loud and have Socrates read the answer back. A 3D bust in the corner changes expression with the tone and lip-syncs as it speaks.",
+            f3_t: "Side questions and term lookup",
+            f3_p: "Select an unfamiliar term to look it up, or open the “by the way” side panel for background. Neither interrupts the main dialogue or counts toward the report.",
+            f4_t: "Critical-thinking hexagon",
+            f4_p: "The personal report shows six critical-thinking goals. Each one gets a level, a one-line justification, and the dialogue lines it is based on. It is not a score.",
+            f5_t: "Stance star map",
+            f5_p: "Plot the whole class on one to three stance axes, rotate the view, cluster automatically, and click a point to see that student's position on each axis.",
+            f6_t: "Classroom community and calendar",
+            f6_p: "Every classroom has announcements, discussion threads, a member list, and a month and week calendar. Teachers can schedule a topic and start it right from the event.",
+            roles_title: "For teachers and for students",
+            teacher_t: "Teachers",
+            teacher_1: "Create classrooms and invite students by code, link, or QR code",
+            teacher_2: "Try a topic yourself in test mode before class",
+            teacher_3: "Read the class report plus each student's analysis and engagement",
+            teacher_4: "Bring your own AI model keys, with monthly budget alerts",
+            student_t: "Students",
+            student_1: "Join a class with an invite code, or join an activity as a guest without signing up",
+            student_2: "Talk with Socrates any time, not only during class",
+            student_3: "Review your own results in every class under “My reports”",
+            student_4: "The interface comes in Chinese, English, and Spanish, with a dark mode",
+            tech_title: "Technology and privacy",
+            tech_lede: "The whole system is one application on Cloudflare Workers: a single Worker serves both the API and the web pages, and each dialogue is run by its own Durable Object.",
+            privacy: "Student dialogue is sensitive. The model services the platform uses by default all have zero data retention (ZDR) policies, AI Gateway logging and caching stay off, and system logs never contain dialogue content.",
+            footer: "© 2026 NTNU Software Engineering Team 4",
+            nav_app: "Open the classroom",
+            nav_docs: "Docs",
+            doc_title: "Enji · Socrates Classroom",
+          },
+          es: {
+            skip: "Ir al contenido principal",
+            brand: "Enji · Aula Socrática",
+            eyebrow: "NTNU Ingeniería de Software · 2026 · Equipo 4",
+            title: "Un diálogo filosófico en el que participa toda la clase",
+            lede: "Enji es una plataforma docente basada en el método socrático. Cada estudiante conversa a solas con un Sócrates de IA que nunca da respuestas: solo hace las preguntas que ayudan a pensar con claridad. El profesorado abre aulas, propone temas y recibe un informe de cada estudiante y de la clase.",
+            cta_try: "Entrar al aula",
+            cta_code: "Ver el código en GitHub",
+            quote: "«Una vida sin examen no merece ser vivida.»",
+            quote_who: "Sócrates, Apología 38a",
+            how_title: "Cómo funciona una clase",
+            how_lede: "Desde abrir el aula hasta leer el informe, una actividad tiene tres pasos.",
+            step1_t: "El profesor abre un aula y un tema",
+            step1_p: "Crea un aula y comparte su código de invitación o código QR. Elige un tema del banco, escribe uno propio o pide sugerencias a la IA, y empieza una actividad.",
+            step2_t: "Los estudiantes dialogan con Sócrates",
+            step2_p: "Los estudiantes escriben o hablan. Sócrates responde en pocas frases y siempre termina con una pregunta, para que examinen sus propias premisas y razonamientos.",
+            step3_t: "Después, los informes",
+            step3_p: "Al terminar la actividad se generan informes: cada estudiante recibe un resumen de sus argumentos y un hexágono de pensamiento crítico, y el informe de clase sitúa la postura de todos en un mapa estelar.",
+            feat_title: "Funciones",
+            f1_t: "Diálogo socrático",
+            f1_p: "Diálogo individual en tiempo real. Sócrates pregunta en lugar de sermonear. Las conversaciones se guardan, así que tras una desconexión se retoman donde quedaron.",
+            f2_t: "Voz y avatar 3D",
+            f2_p: "Pregunta en voz alta y deja que Sócrates lea la respuesta. Un busto 3D en la esquina cambia de expresión con el tono y mueve los labios al hablar.",
+            f3_t: "Preguntas al margen y glosario",
+            f3_p: "Selecciona un término desconocido para consultarlo, o abre el panel lateral «por cierto» para pedir contexto. Ninguno interrumpe el diálogo ni cuenta para el informe.",
+            f4_t: "Hexágono de pensamiento crítico",
+            f4_p: "El informe personal muestra seis objetivos de pensamiento crítico, cada uno con un nivel, una justificación breve y las líneas del diálogo en que se basa. No es una nota.",
+            f5_t: "Mapa estelar de posturas",
+            f5_p: "Sitúa a toda la clase en uno a tres ejes de postura, gira la vista, agrupa automáticamente y pulsa un punto para ver la postura de ese estudiante en cada eje.",
+            f6_t: "Comunidad y calendario del aula",
+            f6_p: "Cada aula tiene anuncios, hilos de discusión, lista de miembros y un calendario mensual y semanal. El profesorado puede programar un tema y empezarlo desde el propio evento.",
+            roles_title: "Para profesores y para estudiantes",
+            teacher_t: "Profesorado",
+            teacher_1: "Crea aulas e invita a estudiantes con un código, enlace o código QR",
+            teacher_2: "Prueba un tema en modo de prueba antes de clase",
+            teacher_3: "Lee el informe de clase y el análisis y la implicación de cada estudiante",
+            teacher_4: "Usa tus propias claves de modelos de IA, con avisos de presupuesto mensual",
+            student_t: "Estudiantes",
+            student_1: "Únete a una clase con un código, o participa como invitado sin registrarte",
+            student_2: "Habla con Sócrates cuando quieras, no solo en clase",
+            student_3: "Revisa tus resultados de cada clase en «Mis informes»",
+            student_4: "La interfaz está en chino, inglés y español, con modo oscuro",
+            tech_title: "Tecnología y privacidad",
+            tech_lede: "Todo el sistema es una sola aplicación en Cloudflare Workers: un único Worker sirve la API y las páginas web, y cada diálogo lo gestiona su propio Durable Object.",
+            privacy: "Los diálogos de los estudiantes son sensibles. Los servicios de modelos que la plataforma usa por defecto tienen políticas de retención cero (ZDR), el registro y la caché de AI Gateway están desactivados y los registros del sistema nunca contienen diálogos.",
+            footer: "© 2026 NTNU Ingeniería de Software, Equipo 4",
+            nav_app: "Entrar al aula",
+            nav_docs: "Documentación",
+            doc_title: "Enji · Aula Socrática",
+          },
+        };
+        var nodes = document.querySelectorAll("[data-i18n]");
+        var base = {};
+        nodes.forEach(function (n) {
+          base[n.dataset.i18n] = n.textContent;
+        });
+        base.doc_title = document.title;
+        var buttons = document.querySelectorAll(".langs button");
+
+        function pick() {
+          var q = new URLSearchParams(location.search).get("lang");
+          var stored = null;
+          try {
+            stored = localStorage.getItem("lang");
+          } catch {}
+          var want = q || stored || navigator.language || "zh-Hant";
+          if (/^en/i.test(want)) return "en";
+          if (/^es/i.test(want)) return "es";
+          return "zh-Hant";
+        }
+
+        function apply(lang) {
+          var d = dict[lang] || base;
+          nodes.forEach(function (n) {
+            n.textContent = d[n.dataset.i18n] || base[n.dataset.i18n];
+          });
+          document.title = d.doc_title;
+          document.documentElement.lang = lang;
+          buttons.forEach(function (b) {
+            b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
+          });
+        }
+
+        buttons.forEach(function (b) {
+          b.addEventListener("click", function () {
+            try {
+              localStorage.setItem("lang", b.dataset.lang);
+            } catch {}
+            apply(b.dataset.lang);
+          });
+        });
+        apply(pick());
+      })();
+    </script>
+  </body>
+</html>
