@@ -1,0 +1,8 @@
+# yamllint 設定 — 針對 GitHub Actions workflows
+# `on:` 是 YAML 1.1 的布林關鍵字，故關閉 truthy check-keys
+extends: default
+
+rules:
+  line-length: disable
+  truthy:
+    check-keys: false

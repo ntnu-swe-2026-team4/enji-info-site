@@ -2,6 +2,7 @@
 
 蘇格拉底對話教室（Enji · 詰問）的使用說明網站。內容依照實際操作畫面整理，分成「開始使用」、「老師」、「學生」、「設定與常見問題」四個部分，帶第一次使用的人一步一步上手。
 
+- **網站**：[https://ntnu-swe-2026-team4.github.io/enji-info-site/](https://ntnu-swe-2026-team4.github.io/enji-info-site/)
 - **Source Repo**：[ntnu-swe-2026-team4/socrates-classroom](https://github.com/ntnu-swe-2026-team4/socrates-classroom)
 
 ## 檔案結構
@@ -47,6 +48,7 @@ python3 -m http.server 8000
 - 每張截圖都要寫 `alt` 文字與 `figcaption`。
 - 按鈕與功能名稱以 app 實際畫面上的文字為準。
 
-## 部署
+## 部署與 CI/CD
 
-純靜態檔案，可以直接用 GitHub Pages 發佈：在 repo 的 **Settings → Pages** 選擇從 `main` 分支的根目錄（`/`）部署，`index.html` 就會是網站首頁。其他靜態主機（Cloudflare Pages、Netlify 等）也只需要把整個資料夾上傳，不需要建置指令。
+- **CI**（`.github/workflows/ci.yml`）：於 PR 與 `main` push 時執行 `yamllint` 檢查 workflow，並驗證 `index.html` 的本地資源路徑、內部錨點、圖片 `alt` 屬性與子路徑相容性。
+- **CD**（`.github/workflows/pages.yml`）：推送到 `main`（或手動觸發 `workflow_dispatch`）時自動透過 GitHub Actions 部署至 GitHub Pages。其他靜態主機（Cloudflare Pages、Netlify 等）也只需要把整個資料夾上傳，不需要建置指令。

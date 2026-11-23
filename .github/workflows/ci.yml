@@ -1,0 +1,97 @@
+---
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install yamllint
+        run: pipx install yamllint
+
+      - name: Lint workflows (yamllint)
+        run: yamllint .github/workflows/
+
+      - name: Validate HTML links, anchors, and assets
+        run: |
+          python3 - <<'PY'
+          import os
+          import sys
+          from html.parser import HTMLParser
+
+
+          class SiteChecker(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.ids = set()
+                  self.anchors = []
+                  self.local_refs = []
+                  self.missing_alt = []
+                  self.root_relative = []
+
+              def handle_starttag(self, tag, attrs):
+                  d = dict(attrs)
+                  if "id" in d:
+                      self.ids.add(d["id"])
+                  for attr in ("src", "href"):
+                      val = d.get(attr)
+                      if not val:
+                          continue
+                      if val.startswith("#"):
+                          self.anchors.append(val[1:])
+                      elif val.startswith(("http://", "https://", "data:", "mailto:", "tel:")):
+                          continue
+                      elif val.startswith("/"):
+                          self.root_relative.append((tag, attr, val))
+                      else:
+                          path = val.split("#")[0].split("?")[0]
+                          if path:
+                              self.local_refs.append((tag, attr, path))
+                  if tag == "img" and not d.get("alt", "").strip():
+                      self.missing_alt.append(d.get("src"))
+
+
+          if not os.path.isfile("index.html"):
+              sys.exit("ERROR: index.html not found")
+
+          with open("index.html", encoding="utf-8") as f:
+              html = f.read()
+
+          checker = SiteChecker()
+          checker.feed(html)
+
+          errors = []
+          for anchor in checker.anchors:
+              if anchor and anchor not in checker.ids:
+                  errors.append(f"Broken internal anchor: #{anchor}")
+          for tag, attr, path in checker.local_refs:
+              if not os.path.exists(path):
+                  errors.append(f"Missing local file in <{tag} {attr}>: {path}")
+          for tag, attr, val in checker.root_relative:
+              errors.append(f"Root-relative path breaks GitHub Pages subpath in <{tag} {attr}>: {val}")
+          for src in checker.missing_alt:
+              errors.append(f"Image missing alt text: {src}")
+
+          if errors:
+              for err in errors:
+                  print(f"::error::{err}")
+              sys.exit(1)
+
+          print(
+              f"OK: {len(checker.ids)} ids, {len(checker.anchors)} anchors, "
+              f"{len(checker.local_refs)} local assets verified."
+          )
+          PY
