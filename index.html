@@ -3,90 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#232326" />
-    <script>
-      try {
-        var t = localStorage.getItem("theme");
-        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
-      } catch {}
-    </script>
-    <title>Enji · 蘇格拉底對話教室</title>
-    <meta
-      name="description"
-      content="Enji是一個以蘇格拉底式詰問為核心的課堂平台：學生與 AI 蘇格拉底一對一對話，老師開課堂、發議題、看逐人與全班報告。"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Enji · 蘇格拉底對話教室" />
-    <meta property="og:description" content="語音提問、即時詰問、班級立場報告——一場全班都能參與的思辨活動。" />
+    <meta name="theme-color" content="#202022" />
+    <title>Enji 使用說明 · 蘇格拉底對話教室</title>
+    <meta name="description" content="Enji 蘇格拉底對話教室的使用說明：老師如何開課、發議題、看報告，學生如何加入班級、與蘇格拉底對話。" />
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%23251f16'/%3E%3Ctext x='16' y='22' font-family='serif' font-size='16' fill='%23fffdf8' text-anchor='middle'%3E詰%3C/text%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0b0b'/%3E%3Ctext x='16' y='22' font-family='serif' font-size='17' fill='%23ffffff' text-anchor='middle'%3E詰%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700;900&display=swap"
     />
     <style>
       :root {
         color-scheme: light;
+        --ink: #0b0b0b;
         --paper: #ffffff;
-        --card: #faf9f6;
-        --paper-deep: #f1efe9;
-        --ink: #161514;
-        --ink-soft: #55514a;
-        --ink-faint: #6d6862;
-        --line: rgb(22 21 20 / 0.13);
-        --line-strong: rgb(22 21 20 / 0.28);
-        --ember: #c1302a;
-        --ember-deep: #9c2420;
-        --on-ember: #ffffff;
-        --ochre: #a57a14;
-        --ochre-wash: rgb(206 174 98 / 0.22);
-        --stance-2: #2f5d8a;
-        --moss: #5c6b2f;
-        --stance-5: #7a4a8c;
-        --serif: "Iowan Old Style", "Songti TC", "Noto Serif TC", Georgia, "Times New Roman", serif;
-        --sans: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", Arial,
-          sans-serif;
-      }
-      @media (prefers-color-scheme: dark) {
-        :root:not([data-theme="light"]) {
-          color-scheme: dark;
-          --paper: #2c2c30;
-          --card: #323236;
-          --paper-deep: #232326;
-          --ink: #f2efe8;
-          --ink-soft: #b9b4a8;
-          --ink-faint: #a5a096;
-          --line: rgb(242 239 232 / 0.16);
-          --line-strong: rgb(242 239 232 / 0.34);
-          --ember: #f19a92;
-          --ember-deep: #c1302a;
-          --on-ember: #232326;
-          --ochre: #ceae62;
-          --ochre-wash: rgb(206 174 98 / 0.12);
-          --stance-2: #7fb0dc;
-          --moss: #aeba84;
-          --stance-5: #c09bd0;
-        }
-      }
-      :root[data-theme="dark"] {
-        color-scheme: dark;
-        --paper: #2c2c30;
-        --card: #323236;
-        --paper-deep: #232326;
-        --ink: #f2efe8;
-        --ink-soft: #b9b4a8;
-        --ink-faint: #a5a096;
-        --line: rgb(242 239 232 / 0.16);
-        --line-strong: rgb(242 239 232 / 0.34);
-        --ember: #f19a92;
-        --ember-deep: #c1302a;
-        --on-ember: #232326;
+        --night: #202022;
         --ochre: #ceae62;
-        --ochre-wash: rgb(206 174 98 / 0.12);
-        --stance-2: #7fb0dc;
-        --moss: #aeba84;
-        --stance-5: #c09bd0;
+        --accent: #c4ae7d;
+        --ground: #f3f3f1;
+        --dot: #cfcfcb;
+        --graphite: #5e5d58;
+        --soft: #4a4a4a;
+        --vermilion: #c1302a;
+        --sans: "Noto Sans TC", -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif;
+        --serif: "Noto Serif TC", "Songti TC", Georgia, serif;
+        --dotfont: "DotGothic16", "Noto Sans TC", ui-monospace, monospace;
       }
-
       *,
       *::before,
       *::after {
@@ -94,34 +40,42 @@
       }
       html {
         -webkit-text-size-adjust: 100%;
+        scroll-behavior: smooth;
+        scroll-padding-top: 80px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
       }
       body {
         margin: 0;
         background: var(--paper);
         color: var(--ink);
         font-family: var(--sans);
-        font-size: 17px;
-        line-height: 1.7;
+        font-size: 16px;
+        line-height: 1.8;
+        overflow-x: hidden;
         overflow-wrap: anywhere;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
       }
       a {
         color: inherit;
       }
-      a:focus-visible,
-      button:focus-visible {
-        outline: 2px solid var(--ember);
-        outline-offset: 3px;
-        border-radius: 4px;
+      :is(a, button):focus-visible {
+        outline: 2px solid var(--vermilion);
+        outline-offset: 2px;
       }
-      .wrap {
-        max-width: 1080px;
-        margin: 0 auto;
-        padding: 0 16px;
-      }
-      @media (min-width: 720px) {
-        .wrap {
-          padding: 0 32px;
-        }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--serif);
+        margin: 0;
+        line-height: 1.3;
       }
       .skip {
         position: absolute;
@@ -129,624 +83,767 @@
       }
       .skip:focus {
         left: 16px;
-        top: 12px;
+        top: 72px;
+        z-index: 50;
         background: var(--ink);
         color: var(--paper);
         padding: 6px 12px;
-        z-index: 10;
       }
 
-      header.top {
-        border-bottom: 1px solid var(--line);
-      }
-      header.top .wrap {
+      .bar {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        height: 64px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
         gap: 12px;
-        min-height: 64px;
-        flex-wrap: wrap;
+        padding: 0 16px;
+        background: var(--night);
       }
-      .brand {
+      @media (min-width: 768px) {
+        .bar {
+          padding: 0 24px;
+        }
+      }
+      .plate {
         display: flex;
-        align-items: center;
-        gap: 10px;
-        font-family: var(--serif);
-        font-weight: 600;
-        font-size: 18px;
-        text-decoration: none;
-      }
-      .seal {
-        display: inline-grid;
-        place-items: center;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: var(--ember);
-        color: var(--on-ember);
-        font-size: 16px;
-        flex: none;
-      }
-      .langs {
-        display: flex;
-        gap: 4px;
-        font-size: 14px;
-      }
-      .langs button {
-        font: inherit;
-        color: var(--ink-soft);
-        background: none;
-        border: 1px solid transparent;
-        border-radius: 999px;
-        padding: 4px 10px;
-        cursor: pointer;
-      }
-      .langs button[aria-pressed="true"] {
+        align-items: stretch;
+        height: 36px;
+        border: 2px solid var(--ink);
+        background: var(--paper);
         color: var(--ink);
-        border-color: var(--line-strong);
-      }
-
-      .hero {
-        padding: 72px 0 56px;
-        border-bottom: 1px solid var(--line);
-      }
-      .eyebrow {
-        font-size: 13px;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--ember);
-        font-weight: 600;
-        margin: 0 0 16px;
-      }
-      h1,
-      h2,
-      h3 {
-        font-family: var(--serif);
-        font-weight: 600;
-        line-height: 1.25;
-        margin: 0;
-      }
-      h1 {
-        font-size: clamp(34px, 7vw, 60px);
-        letter-spacing: -0.01em;
-        max-width: 18ch;
-      }
-      .lede {
-        font-size: clamp(18px, 2.2vw, 21px);
-        color: var(--ink-soft);
-        max-width: 40em;
-        margin: 20px 0 32px;
-      }
-      .ctas {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        min-height: 44px;
-        padding: 0 20px;
-        border-radius: 999px;
         text-decoration: none;
-        font-weight: 600;
-        font-size: 15px;
-        border: 1px solid var(--ink);
       }
-      .btn.primary {
+      .mark {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        background: var(--ink);
+        color: var(--paper);
+        font-family: var(--serif);
+        font-size: 19px;
+        line-height: 1;
+      }
+      .plate .name {
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+      }
+      .spacer {
+        flex: 1;
+      }
+      .plate .go {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 14px;
+        font-size: 12.5px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        white-space: nowrap;
+        text-decoration: none;
+      }
+      .plate .go.red::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        background: var(--vermilion);
+      }
+      .plate .go:hover {
         background: var(--ink);
         color: var(--paper);
       }
-      .btn.primary:hover {
-        background: var(--ember-deep);
-        border-color: var(--ember-deep);
-        color: #fff;
-      }
-      .btn.ghost:hover {
-        background: var(--paper-deep);
+      @media (max-width: 479px) {
+        .plate .name {
+          display: none;
+        }
+        .plate .go {
+          padding: 0 10px;
+          letter-spacing: 0.06em;
+        }
       }
 
-      .quote {
-        margin: 48px 0 0;
-        padding: 20px 24px;
-        border-left: 3px solid var(--ember);
-        background: var(--card);
-        max-width: 40em;
+      .hero {
+        background: var(--night);
+        color: var(--paper);
+        padding: 56px 16px 64px;
       }
-      .quote p {
-        margin: 0;
-        font-family: var(--serif);
-        font-size: 19px;
+      .hero .in {
+        max-width: 1180px;
+        margin: 0 auto;
       }
-      .quote .who {
-        margin-top: 8px;
-        font-family: var(--sans);
+      @media (min-width: 768px) {
+        .hero {
+          padding: 72px 32px 80px;
+        }
+      }
+      .kicker {
+        display: inline-block;
+        font-family: var(--dotfont);
         font-size: 14px;
-        color: var(--ink-faint);
+        letter-spacing: 0.14em;
+        margin: 0 0 12px;
       }
-
-      section.block {
-        padding: 64px 0;
-        border-bottom: 1px solid var(--line);
+      .hero .kicker {
+        color: var(--ochre);
       }
-      .block-head {
-        margin-bottom: 32px;
+      .hero h1 {
+        font-size: clamp(34px, 6vw, 60px);
+        font-weight: 900;
+      }
+      .hero p {
         max-width: 40em;
+        color: rgb(255 255 255 / 0.78);
+        margin: 16px 0 0;
       }
-      .block-head h2 {
-        font-size: clamp(26px, 4vw, 36px);
+      .paths {
+        display: grid;
+        gap: 16px;
+        margin-top: 32px;
       }
-      .block-head p {
-        color: var(--ink-soft);
-        margin: 12px 0 0;
+      @media (min-width: 720px) {
+        .paths {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          max-width: 820px;
+        }
+      }
+      .paths a {
+        display: block;
+        border: 3px solid var(--accent);
+        padding: 16px 20px;
+        text-decoration: none;
+        background: var(--accent);
+        color: var(--ink);
+        outline-color: var(--paper);
+      }
+      .paths a b {
+        display: inline-block;
+        font-family: var(--serif);
+        font-size: 22px;
+        font-weight: 900;
+      }
+      .paths a span {
+        display: block;
+        margin-top: 6px;
+        font-size: 14px;
+        color: rgb(11 11 11 / 0.75);
+      }
+      .paths a:hover {
+        translate: 2px 2px;
+        box-shadow: inset 3px 3px 0 rgb(17 17 17 / 0.18);
+      }
+      .paths a:active {
+        translate: 3px 3px;
+        box-shadow: inset 4px 4px 0 rgb(17 17 17 / 0.26);
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .paths a {
+          transition:
+            translate 120ms ease-out,
+            box-shadow 120ms ease-out;
+        }
+        .plate .go.red::before {
+          transition:
+            background-color 150ms,
+            box-shadow 150ms;
+        }
+      }
+      .plate .go.red:hover::before,
+      .plate .go.red:focus-visible::before {
+        background: #ffd75e;
+        box-shadow:
+          0 0 4px 1px #ffd75e,
+          0 0 12px 3px rgb(255 215 94 / 0.6);
+      }
+      @keyframes breathe {
+        0%,
+        100% {
+          background: #ffd75e;
+          box-shadow:
+            0 0 5px 1px #ffd75e,
+            0 0 14px 4px rgb(255 215 94 / 0.65);
+        }
+        50% {
+          background: #c9a640;
+          box-shadow:
+            0 0 2px 0 rgb(255 215 94 / 0.35),
+            0 0 4px 1px rgb(255 215 94 / 0.15);
+        }
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        .plate .go.red:hover::before,
+        .plate .go.red:focus-visible::before {
+          animation: breathe 2.4s ease-in-out infinite;
+        }
       }
 
-      ol.steps {
-        list-style: none;
+      .layout {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 16px;
+        display: grid;
+        gap: 40px;
+      }
+      @media (min-width: 768px) {
+        .layout {
+          padding: 0 32px;
+        }
+      }
+      @media (min-width: 1040px) {
+        .layout {
+          grid-template-columns: 240px minmax(0, 1fr);
+          gap: 56px;
+        }
+      }
+      nav.toc {
+        display: none;
+      }
+      @media (min-width: 1040px) {
+        nav.toc {
+          display: block;
+          position: sticky;
+          top: 88px;
+          align-self: start;
+          max-height: calc(100vh - 110px);
+          overflow-y: auto;
+          margin-top: 56px;
+          border: 2px solid var(--ink);
+          padding: 14px 16px;
+          font-size: 14px;
+        }
+      }
+      nav.toc p {
+        margin: 12px 0 4px;
+        font-family: var(--dotfont);
+        letter-spacing: 0.12em;
+        font-size: 13px;
+        color: var(--graphite);
+      }
+      nav.toc p:first-child {
+        margin-top: 0;
+      }
+      nav.toc ol {
         margin: 0;
         padding: 0;
-        display: grid;
-        gap: 16px;
-        counter-reset: step;
+        list-style: none;
       }
-      @media (min-width: 820px) {
-        ol.steps {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-      ol.steps li {
-        counter-increment: step;
-        border: 1px solid var(--line-strong);
-        border-radius: 14px;
-        padding: 24px;
-        background: var(--paper);
-      }
-      ol.steps li::before {
-        content: counter(step, decimal-leading-zero);
+      nav.toc a {
         display: block;
-        font-family: var(--serif);
-        font-size: 28px;
-        color: var(--ember);
-        margin-bottom: 8px;
+        padding: 3px 0;
+        text-decoration: none;
       }
-      ol.steps h3 {
-        font-size: 20px;
-        margin-bottom: 6px;
-      }
-      ol.steps p,
-      .card p {
-        margin: 0;
-        color: var(--ink-soft);
-        font-size: 16px;
+      nav.toc a:hover {
+        color: var(--vermilion);
       }
 
-      .grid {
-        display: grid;
-        gap: 16px;
+      .part {
+        padding-top: 56px;
       }
-      @media (min-width: 620px) {
-        .grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-      @media (min-width: 960px) {
-        .grid.three {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-      .card {
-        background: var(--card);
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        padding: 22px;
-      }
-      .card h3 {
-        font-size: 18px;
-        margin-bottom: 6px;
+      .part-head {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 14px;
+        border-bottom: 3px solid var(--ink);
+        padding-bottom: 12px;
+        margin-bottom: 8px;
       }
-      .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
+      .part-head .tag {
+        font-family: var(--dotfont);
+        font-size: 13px;
+        letter-spacing: 0.1em;
+        padding: 2px 10px;
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .part-head .tag.student {
+        background: var(--accent);
+        color: var(--ink);
+      }
+      .part-head h2 {
+        font-size: clamp(26px, 4vw, 38px);
+        font-weight: 900;
+      }
+      .step {
+        padding: 36px 0;
+        border-bottom: 2px dotted var(--ink);
+      }
+      .step:last-child {
+        border-bottom: 0;
+      }
+      .step h3 {
+        font-size: 23px;
+        font-weight: 700;
+        display: flex;
+        gap: 12px;
+        align-items: baseline;
+      }
+      .step h3 .n {
+        font-family: var(--dotfont);
+        font-weight: 400;
+        font-size: 15px;
+        color: var(--vermilion);
         flex: none;
-        background: var(--ember);
       }
-      .dot.c2 {
-        background: var(--stance-2);
+      .step > p {
+        margin: 10px 0 0;
+        color: var(--soft);
+        max-width: 46em;
       }
-      .dot.c3 {
-        background: var(--ochre);
+      .step ol,
+      .step ul {
+        margin: 14px 0 0;
+        padding-left: 1.4em;
+        max-width: 46em;
       }
-      .dot.c4 {
-        background: var(--moss);
-      }
-      .dot.c5 {
-        background: var(--stance-5);
-      }
-
-      .roles {
-        display: grid;
-        gap: 16px;
-      }
-      @media (min-width: 820px) {
-        .roles {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-      .role {
-        border: 1px solid var(--line-strong);
-        border-radius: 14px;
-        padding: 24px;
-      }
-      .role h3 {
-        font-size: 22px;
-        margin-bottom: 12px;
-      }
-      .role ul {
-        margin: 0;
-        padding-left: 1.2em;
-        color: var(--ink-soft);
-      }
-      .role li + li {
+      .step li + li {
         margin-top: 6px;
       }
-
-      .stack {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        list-style: none;
-        margin: 0 0 24px;
-        padding: 0;
+      .step li::marker {
+        font-weight: 700;
       }
-      .stack li {
-        border: 1px solid var(--line-strong);
-        border-radius: 999px;
-        padding: 4px 14px;
-        font-size: 14px;
+      kbd,
+      .ui {
+        display: inline-block;
+        border: 1.5px solid var(--ink);
+        background: var(--paper);
+        padding: 0 7px;
+        font-family: var(--sans);
+        font-size: 0.88em;
+        font-weight: 700;
+        line-height: 1.6;
+        white-space: nowrap;
       }
-      .note {
-        background: var(--ochre-wash);
-        border-radius: 12px;
-        padding: 18px 20px;
-        max-width: 44em;
-        margin: 0;
+      .ui.pri {
+        background: var(--accent);
       }
-
+      .shot {
+        margin: 22px 0 0;
+        max-width: 820px;
+      }
+      .shot .frame {
+        border: 3px solid var(--ink);
+        box-shadow: 8px 8px 0 var(--ink);
+        background: var(--paper);
+      }
+      .shot figcaption {
+        margin-top: 16px;
+        font-size: 13px;
+        color: var(--graphite);
+      }
+      .tip {
+        margin: 18px 0 0;
+        max-width: 46em;
+        border: 2px solid var(--ink);
+        background: var(--ground);
+        background-image: radial-gradient(var(--dot) 1.1px, transparent 1.5px);
+        background-size: 12px 12px;
+        padding: 12px 16px;
+        font-size: 15px;
+      }
+      .tip b {
+        font-family: var(--dotfont);
+        font-weight: 400;
+        letter-spacing: 0.12em;
+        margin-right: 6px;
+      }
+      table.kv {
+        margin: 16px 0 0;
+        border-collapse: collapse;
+        width: 100%;
+        max-width: 760px;
+        font-size: 15px;
+      }
+      table.kv th,
+      table.kv td {
+        border: 2px solid var(--ink);
+        padding: 8px 12px;
+        text-align: left;
+        vertical-align: top;
+      }
+      table.kv th {
+        background: var(--ground);
+        white-space: nowrap;
+        font-weight: 700;
+      }
+      .tablewrap {
+        overflow-x: auto;
+      }
 
       footer {
-        padding: 40px 0 56px;
-        font-size: 14px;
-        color: var(--ink-faint);
+        margin-top: 80px;
+        background: var(--ink);
+        color: rgb(255 255 255 / 0.65);
+        padding: 28px 16px 36px;
+        font-size: 13px;
       }
-      footer .wrap {
+      footer .in {
+        max-width: 1180px;
+        margin: 0 auto;
         display: flex;
         flex-wrap: wrap;
-        gap: 12px 24px;
         justify-content: space-between;
+        gap: 10px 24px;
       }
       footer nav {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px 20px;
+        gap: 6px 20px;
       }
-
-      @media (prefers-reduced-motion: no-preference) {
-        .btn {
-          transition:
-            background-color 0.15s,
-            border-color 0.15s,
-            color 0.15s;
-        }
+      footer a:hover {
+        color: var(--ochre);
       }
     </style>
   </head>
   <body>
-    <a class="skip" href="#main" data-i18n="skip">跳到主要內容</a>
+    <a class="skip" href="#main">跳到主要內容</a>
 
-    <header class="top">
-      <div class="wrap">
-        <a class="brand" href="#main"><span class="seal" aria-hidden="true">詰</span><span data-i18n="brand">Enji · 蘇格拉底對話教室</span></a>
-        <div class="langs" role="group" aria-label="Language">
-          <button type="button" data-lang="zh-Hant" lang="zh-Hant" aria-pressed="true">中文</button>
-          <button type="button" data-lang="en" lang="en" aria-pressed="false">English</button>
-          <button type="button" data-lang="es" lang="es" aria-pressed="false">Español</button>
-        </div>
+    <header class="bar">
+      <a class="plate" href="#top" aria-label="Enji">
+        <span class="mark" aria-hidden="true">詰</span>
+        <span class="name">Enji</span>
+      </a>
+      <span class="spacer"></span>
+      <div class="plate">
+        <a class="go red" href="https://socrates.g36maid.dev/">進入教室</a>
       </div>
     </header>
 
-    <main id="main">
-      <section class="hero">
-        <div class="wrap">
-          <p class="eyebrow" data-i18n="eyebrow">NTNU 軟體工程 · 2026 · 第四組</p>
-          <h1 data-i18n="title">讓全班都能參與的思辨對話</h1>
-          <p class="lede" data-i18n="lede">
-            Enji（詰問）是一個以蘇格拉底式詰問為核心的課堂平台。學生和 AI 蘇格拉底一對一對話，蘇格拉底不給答案，只用追問幫你把想法想清楚；老師開課堂、發議題，課後看到每位學生和全班的思辨報告。
-          </p>
-          <div class="ctas">
-            <a class="btn primary" href="https://socrates.g36maid.dev/" data-i18n="cta_try">進入教室</a>
-            <a class="btn ghost" href="https://github.com/ntnu-swe-2026-team4/socrates-classroom" data-i18n="cta_code">在 GitHub 上看原始碼</a>
-          </div>
-          <blockquote class="quote">
-            <p data-i18n="quote">「未經檢驗的人生不值得活。」</p>
-            <p class="who" data-i18n="quote_who">蘇格拉底，《申辯篇》38a</p>
-          </blockquote>
+    <section class="hero" id="top">
+      <div class="in">
+        <p class="kicker">· · · 使用說明</p>
+        <h1>一步一步學會用 Enji</h1>
+        <p>這份說明依照實際操作畫面整理，分成老師與學生兩條路線。第一次使用的話，先看「開始使用」，再依你的身分往下讀。</p>
+        <div class="paths">
+          <a class="teacher" href="#teacher"><b>我是老師</b><span>開課、邀請學生、發議題、看即時面板與報告</span></a>
+          <a class="student" href="#student"><b>我是學生</b><span>加入班級、和蘇格拉底對話、查看自己的報告</span></a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="block" aria-labelledby="how">
-        <div class="wrap">
-          <div class="block-head">
-            <h2 id="how" data-i18n="how_title">一堂課怎麼進行</h2>
-            <p data-i18n="how_lede">從開班到報告，一場活動只需要三步。</p>
-          </div>
-          <ol class="steps">
-            <li>
-              <h3 data-i18n="step1_t">老師開課堂、發議題</h3>
-              <p data-i18n="step1_p">建立班級並分享邀請碼或 QR code，從議題集挑題、自己寫題，或請 AI 產生候選議題，然後開始一場活動。</p>
-            </li>
-            <li>
-              <h3 data-i18n="step2_t">學生與蘇格拉底對話</h3>
-              <p data-i18n="step2_p">學生用打字或語音發言，蘇格拉底每次只回幾句、以問句結尾，引導學生檢視自己的前提與推論。</p>
-            </li>
-            <li>
-              <h3 data-i18n="step3_t">課後看報告</h3>
-              <p data-i18n="step3_p">活動結束後自動產生報告：每位學生的論點總結與思辨力六角圖，以及把全班立場畫成星圖的群體報告。</p>
-            </li>
-          </ol>
-        </div>
-      </section>
+    <div class="layout">
+      <nav class="toc" aria-label="目錄">
+        <p>開始使用</p>
+        <ol>
+          <li><a href="#s-open">打開網站</a></li>
+          <li><a href="#s-login">登入與註冊</a></li>
+          <li><a href="#s-shell">畫面導覽</a></li>
+        </ol>
+        <p>老師</p>
+        <ol>
+          <li><a href="#t-class">開一間教室</a></li>
+          <li><a href="#t-invite">邀請學生</a></li>
+          <li><a href="#t-topic">建立議題</a></li>
+          <li><a href="#t-start">開始活動</a></li>
+          <li><a href="#t-live">即時面板</a></li>
+          <li><a href="#t-report">看報告</a></li>
+          <li><a href="#t-community">公告與討論區</a></li>
+        </ol>
+        <p>學生</p>
+        <ol>
+          <li><a href="#u-join">加入班級</a></li>
+          <li><a href="#u-dialogue">參加課堂討論</a></li>
+          <li><a href="#u-tools">順帶一問與查詢</a></li>
+          <li><a href="#u-chat">自由提問</a></li>
+          <li><a href="#u-report">查看我的報告</a></li>
+        </ol>
+        <p>其他</p>
+        <ol>
+          <li><a href="#o-settings">設定</a></li>
+          <li><a href="#o-faq">常見問題</a></li>
+        </ol>
+      </nav>
 
-      <section class="block" aria-labelledby="features">
-        <div class="wrap">
-          <div class="block-head">
-            <h2 id="features" data-i18n="feat_title">主要功能</h2>
-          </div>
-          <div class="grid three">
-            <div class="card">
-              <h3><span class="dot" aria-hidden="true"></span><span data-i18n="f1_t">蘇格拉底式對話</span></h3>
-              <p data-i18n="f1_p">即時串流的一對一對話。蘇格拉底只追問、不說教，對話紀錄永久保存，斷線重連就能接著聊。</p>
-            </div>
-            <div class="card">
-              <h3><span class="dot c2" aria-hidden="true"></span><span data-i18n="f2_t">語音與 3D 頭像</span></h3>
-              <p data-i18n="f2_p">可以用說的提問，也能讓蘇格拉底把回答念出來；角落的 3D 半身像會跟著語氣變換表情、對嘴說話。</p>
-            </div>
-            <div class="card">
-              <h3><span class="dot c3" aria-hidden="true"></span><span data-i18n="f3_t">順帶一問與名詞查詢</span></h3>
-              <p data-i18n="f3_p">遇到不懂的名詞，選取就能查；想問背景知識，開側欄「順帶一問」，不會打斷主對話，也不會算進報告。</p>
-            </div>
-            <div class="card">
-              <h3><span class="dot c4" aria-hidden="true"></span><span data-i18n="f4_t">思辨力六角圖</span></h3>
-              <p data-i18n="f4_p">個人報告用六項思辨力目標呈現表現，每項標出達成程度、一句依據與對應的對話行號，不是打分數。</p>
-            </div>
-            <div class="card">
-              <h3><span class="dot c5" aria-hidden="true"></span><span data-i18n="f5_t">立場星圖</span></h3>
-              <p data-i18n="f5_p">把全班的立場畫在一到三條軸上，可以旋轉、自動分群，點一個點就能看那位學生在各軸上的想法。</p>
-            </div>
-            <div class="card">
-              <h3><span class="dot" aria-hidden="true"></span><span data-i18n="f6_t">教室社群與行事曆</span></h3>
-              <p data-i18n="f6_p">每間教室有公告、討論串與成員名單，也有月／週行事曆，老師能把議題排成討論，時間到直接開始。</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <main id="main">
+        <section class="part" id="start" aria-labelledby="start-h">
+          <div class="part-head"><span class="tag">00</span><h2 id="start-h">開始使用</h2></div>
 
-      <section class="block" aria-labelledby="roles">
-        <div class="wrap">
-          <div class="block-head">
-            <h2 id="roles" data-i18n="roles_title">給老師，也給學生</h2>
-          </div>
-          <div class="roles">
-            <div class="role">
-              <h3 data-i18n="teacher_t">老師</h3>
-              <ul>
-                <li data-i18n="teacher_1">建立班級，用邀請碼、連結或 QR code 邀請學生</li>
-                <li data-i18n="teacher_2">先用測試模式自己跑一遍，確認議題效果</li>
-                <li data-i18n="teacher_3">看全班報告與每位學生的分析和認真度</li>
-                <li data-i18n="teacher_4">可以接上自己的 AI 模型金鑰，並設定每月額度提醒</li>
-              </ul>
-            </div>
-            <div class="role">
-              <h3 data-i18n="student_t">學生</h3>
-              <ul>
-                <li data-i18n="student_1">用邀請碼加入班級，或不註冊直接以訪客身分參加活動</li>
-                <li data-i18n="student_2">隨時和蘇格拉底自由對話，不一定要在課堂上</li>
-                <li data-i18n="student_3">在「我的報告」回顧自己在每個班的表現</li>
-                <li data-i18n="student_4">介面支援中文、英文與西班牙文，也有深色模式</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+          <article class="step" id="s-open">
+            <h3><span class="n">01</span>打開網站</h3>
+            <p>進入網站後，首頁是一段可以往下捲動的漫畫故事，介紹蘇格拉底和這個教室的由來。不想看故事的話，按右上角的 <span class="ui">跳到結尾</span> 就能直接到最後一格。</p>
+            <ul>
+              <li>右上角可以切換介面語言：<span class="ui">中</span> / <span class="ui">EN</span> / <span class="ui">ES</span>。</li>
+              <li>有帳號的人按 <span class="ui">登入</span> 或結尾的 <span class="ui">登入開始 →</span>。</li>
+              <li>老師給了邀請碼的話，直接在結尾的「輸入邀請碼」欄位填入，按 <span class="ui">前往</span>。</li>
+            </ul>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/landing-end.jpg" alt="首頁故事的最後一格：登入開始按鈕與輸入邀請碼欄位" width="800" height="500" loading="lazy" /></div>
+              <figcaption>首頁故事的結尾：登入，或用邀請碼直接進入。</figcaption>
+            </figure>
+          </article>
 
-      <section class="block" aria-labelledby="tech">
-        <div class="wrap">
-          <div class="block-head">
-            <h2 id="tech" data-i18n="tech_title">技術與隱私</h2>
-            <p data-i18n="tech_lede">整個系統是一個部署在 Cloudflare Workers 上的應用：同一個 Worker 同時提供 API 和前端頁面，每條對話由一個 Durable Object 負責。</p>
-          </div>
-          <ul class="stack">
-            <li>Cloudflare Workers</li>
-            <li>Durable Objects</li>
-            <li>D1 (SQLite)</li>
-            <li>Workers AI</li>
-            <li>Hono</li>
-            <li>React 19</li>
-            <li>TanStack Router / Query</li>
-            <li>Tailwind CSS v4</li>
-            <li>three.js</li>
-            <li>TypeScript</li>
-            <li>Vitest</li>
-            <li>GitHub Actions</li>
-          </ul>
-          <p class="note" data-i18n="privacy">
-            學生的對話內容很敏感。平台預設使用的模型服務都採零資料保留（ZDR）政策，AI Gateway 的記錄與快取保持關閉，系統日誌不含任何對話內容。
-          </p>
-        </div>
-      </section>
+          <article class="step" id="s-login">
+            <h3><span class="n">02</span>登入與註冊</h3>
+            <p>登入頁可以在「登入」和「註冊」兩種模式之間切換。</p>
+            <ol>
+              <li><b>登入：</b>輸入 Email 與密碼（至少 8 個字元）後送出。若學校有開放，也可以用 Google 或 Facebook 登入。</li>
+              <li><b>註冊：</b>切到「註冊」，填寫名字、Email、密碼，並勾選同意使用條款。註冊後系統會寄一封驗證信，點信中的連結即可驗證信箱；還沒驗證也不影響登入、入班與對話。</li>
+              <li><b>忘記密碼：</b>按登入頁的「忘記密碼」，輸入 Email 後會收到重設密碼的連結。</li>
+            </ol>
+            <div class="tip"><b>提示</b>登入頁上方的公告欄會顯示系統公告，有多則時可以展開看全部。</div>
+          </article>
 
-    </main>
+          <article class="step" id="s-shell">
+            <h3><span class="n">03</span>畫面導覽</h3>
+            <p>登入後會來到「首頁」。左側的直欄是主要導覽：</p>
+            <div class="tablewrap">
+              <table class="kv">
+                <tbody>
+                  <tr><th>首頁</th><td>打招呼與快捷按鈕（<span class="ui pri">開始對話</span>、<span class="ui">開新的教室</span>），教室數量、對話數量、最近的對話與教室動態。</td></tr>
+                  <tr><th>提問</th><td>和蘇格拉底一對一的自由對話，不屬於任何課堂。</td></tr>
+                  <tr><th>教室</th><td>你開的教室與你加入的教室，以及「我的報告」。</td></tr>
+                  <tr><th>🔔 通知</th><td>左下角的鈴鐺，查看系統與教室通知。</td></tr>
+                  <tr><th>☀ 深淺色</th><td>切換深色／淺色介面。</td></tr>
+                  <tr><th>頭像</th><td>最下方是你的帳號選單，可進入「設定」或登出。</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/teacher-home.jpg" alt="老師登入後的首頁" width="800" height="500" loading="lazy" /></div>
+              <figcaption>老師登入後的首頁。學生的首頁版面相同，只是顯示的是自己加入的教室。</figcaption>
+            </figure>
+          </article>
+        </section>
+
+        <section class="part" id="teacher" aria-labelledby="teacher-h">
+          <div class="part-head"><span class="tag">老師</span><h2 id="teacher-h">老師怎麼用</h2></div>
+
+          <article class="step" id="t-class">
+            <h3><span class="n">T1</span>開一間教室</h3>
+            <ol>
+              <li>點左側的 <span class="ui">教室</span>，或在首頁按 <span class="ui">開新的教室</span>。</li>
+              <li>按右上角的 <span class="ui pri">＋ 開課</span>。</li>
+              <li>在跳出的視窗輸入教室名稱（例如「公民課 · 第四週」），按 <span class="ui pri">建立教室</span>。</li>
+            </ol>
+            <p>建好的教室會出現在教室清單中，卡片上會顯示目前的主題、學生人數，以及是否有活動「進行中」。任何登入的使用者都能開課，開課的人就是這間教室的老師。</p>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/new-class.jpg" alt="教室頁的開課視窗" width="800" height="500" loading="lazy" /></div>
+              <figcaption>按「開課」後輸入教室名稱。</figcaption>
+            </figure>
+          </article>
+
+          <article class="step" id="t-invite">
+            <h3><span class="n">T2</span>邀請學生</h3>
+            <ol>
+              <li>進入教室後，點左邊選單的 <span class="ui">成員</span>。</li>
+              <li>在「邀請連結」區塊選擇邀請類型：
+                <ul>
+                  <li><b>加入班級</b>：學生成為班上成員，之後每次活動都能參加。</li>
+                  <li><b>以訪客身分參加活動</b>：不用註冊，只參加目前這一場活動，不會進入班級名冊。</li>
+                  <li><b>加入班級與活動</b>：同時加入班級並進入目前的活動。</li>
+                </ul>
+              </li>
+              <li>按 <span class="ui pri">產生邀請連結</span>，畫面會出現 QR code 與連結。投影 QR code 讓學生掃描，或按 <span class="ui">複製連結</span> 貼到班群。</li>
+            </ol>
+            <div class="tip"><b>注意</b>連結只會在產生當下完整顯示，離開畫面前請先複製或分享。每條連結都有到期日；不想再讓人加入時按「撤銷邀請」即可。成員名單裡也可以「移除」學生。</div>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/invite.jpg" alt="成員頁產生的邀請連結與 QR code" width="800" height="500" loading="lazy" /></div>
+              <figcaption>產生邀請連結後，會看到 QR code、連結和到期日。</figcaption>
+            </figure>
+          </article>
+
+          <article class="step" id="t-topic">
+            <h3><span class="n">T3</span>建立議題</h3>
+            <p>議題是一場討論要問的問題。在教室的 <span class="ui">主題</span> 分頁往下捲，到「討論主題」區塊：</p>
+            <ol>
+              <li>選擇 <span class="ui">自訂</span> 自己寫，或 <span class="ui">AI 生成</span> 讓 AI 提供候選議題。</li>
+              <li>填寫「自訂主題標題」與「討論命題」（學生一進入對話時，蘇格拉底會先丟出這個命題）。</li>
+              <li>選填「價值軸」，最多 3 條。每條要寫它在問什麼，以及左右兩端各是什麼立場，例如「契約至上 ↔ 人情優先」。報告會把每位學生放到這些軸上。</li>
+              <li>按 <span class="ui pri">加入議題集</span>。</li>
+            </ol>
+            <p>也可以用「複製既有議題」，把你在其他班級寫過的議題複製一份過來，兩邊各自獨立。</p>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/new-topic.jpg" alt="新增議題的表單：自訂或 AI 生成、標題、命題、價值軸" width="800" height="500" loading="lazy" /></div>
+              <figcaption>「討論主題」區塊：新增議題、設定價值軸。</figcaption>
+            </figure>
+          </article>
+
+          <article class="step" id="t-start">
+            <h3><span class="n">T4</span>開始活動</h3>
+            <p>在 <span class="ui">主題</span> 分頁的「換一個主題」區塊：</p>
+            <ol>
+              <li>從這個班的議題，或下方的「系統題」中點選一題。系統題是平台內建的題目，例如「電車難題：你會拉桿嗎？」。</li>
+              <li>選擇「價值軸由誰設定」：<b>老師設定</b>（用議題上你寫好的價值軸），或 <b>AI 依全班對話生成</b>。</li>
+              <li>想先自己試跑的話，勾選 <b>測試模式</b>。測試活動只有你看得到，學生從任何入口都看不到它，結束後一樣會產生報告。</li>
+              <li>按 <span class="ui pri">開始活動</span>。</li>
+            </ol>
+            <p>活動開始後，教室頁最上方的「目前的主題」會換成這題，旁邊有 <span class="ui pri">即時面板</span> 與 <span class="ui">查看報告</span> 兩個按鈕。正式活動一次只會有一場，開新的會換掉進行中的那場。</p>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/start-activity.jpg" alt="換一個主題區塊：系統題、價值軸設定、測試模式與開始活動按鈕" width="800" height="500" loading="lazy" /></div>
+              <figcaption>選題、決定價值軸來源，然後開始活動。</figcaption>
+            </figure>
+          </article>
+
+          <article class="step" id="t-live">
+            <h3><span class="n">T5</span>即時面板</h3>
+            <p>上課時打開 <span class="ui pri">即時面板</span>，可以看到每位學生目前的狀況：</p>
+            <ul>
+              <li>上方統計：學生人數、近期有發言、還沒開口、有標記。</li>
+              <li>名單會顯示每位學生的狀態（還沒開口、閒置、近期有發言、同步中）、對話輪數與標記。</li>
+              <li>可以用名字搜尋、依狀態篩選，或按 <span class="ui">只看有標記</span> 找出需要關心的學生（例如對話中偏離主題或有違規的情況）。</li>
+            </ul>
+            <p>討論結束時，按右上角的 <span class="ui">結束並查看報告</span>，確認後學生就不能再發言，系統開始產生報告，並自動帶你到報告頁。</p>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/live.jpg" alt="即時面板：活動主題與學生即時名單" width="800" height="500" loading="lazy" /></div>
+              <figcaption>即時面板會自動更新，右上角是結束活動的按鈕。</figcaption>
+            </figure>
+          </article>
+
+          <article class="step" id="t-report">
+            <h3><span class="n">T6</span>看報告</h3>
+            <p>報告頁右上角可以切換 <span class="ui">群體</span> 與 <span class="ui">單人</span>。報告剛開始產生時會顯示「生成中」，稍等一下就會出現。</p>
+            <ul>
+              <li><b>全班整理：</b>一段總結全班討論的文字。</li>
+              <li><b>立場星圖：</b>每個點是一位學生。勾選最多 3 條價值軸，星圖會從一條線展開成平面，再展開成可以拖曳旋轉的立體圖。右上角可以選「不分群」、「自動」或指定 2–4 群；點一個點，就能看那位學生在各軸上的想法。</li>
+              <li><b>立場分佈：</b>列出每位學生在各條軸上的落點與一句說明。</li>
+            </ul>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/report-class.jpg" alt="群體報告：全班整理與立場星圖" width="800" height="500" loading="lazy" /></div>
+              <figcaption>群體報告：全班整理與立場星圖。</figcaption>
+            </figure>
+            <p>切到 <span class="ui">單人</span>，選一位學生，可以看到：</p>
+            <ul>
+              <li><b>立場落點：</b>這位學生在各條價值軸上的位置。</li>
+              <li><b>思辨表現（六角圖）：</b>六項思辨力目標（看見盲點、分辨前提、提出原則、說明理由、理解對立、立場變化），每項分成未觀察到、初步、部分、達成四級，並附上判斷依據與對應的對話行號。這不是成績。</li>
+              <li><b>論點總結：</b>學生的主張與理由。</li>
+              <li><b>認真度：</b>實質發言、回應追問、切題三項，各 0–3 級。</li>
+            </ul>
+            <div class="tip"><b>設定</b>報告最上方的「認真度也顯示在」可以勾選要不要讓認真度出現在群體報告（以假名呈現）和學生本人的報告，預設都不顯示。</div>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/report-hexagon.jpg" alt="單人報告的思辨表現六角圖與各項說明" width="800" height="500" loading="lazy" /></div>
+              <figcaption>單人報告的思辨表現六角圖。</figcaption>
+            </figure>
+          </article>
+
+          <article class="step" id="t-community">
+            <h3><span class="n">T7</span>公告與討論區</h3>
+            <p>每間教室左側的選單除了「主題」與「成員」，還有：</p>
+            <ul>
+              <li><b>公告：</b>老師按 <span class="ui">發布</span> 張貼公告，班上成員都看得到。</li>
+              <li><b>討論區：</b>老師和學生都可以提出問題或想法，和同學一起討論。</li>
+              <li><b>活動紀錄：</b>在「主題」分頁可以看到這個班過去的活動，並打開當時的報告。</li>
+            </ul>
+            <p>如果你同時有好幾間教室，教室頁左上角的下拉選單可以直接切換。</p>
+          </article>
+        </section>
+
+        <section class="part" id="student" aria-labelledby="student-h">
+          <div class="part-head"><span class="tag student">學生</span><h2 id="student-h">學生怎麼用</h2></div>
+
+          <article class="step" id="u-join">
+            <h3><span class="n">S1</span>加入班級</h3>
+            <p>老師會給你一個邀請連結、QR code 或邀請碼。三種方式擇一：</p>
+            <ul>
+              <li><b>掃 QR code 或點連結：</b>直接打開加入頁面。</li>
+              <li><b>輸入邀請碼：</b>在網站首頁結尾的「輸入邀請碼」欄位，或登入後「教室」頁右上角的邀請碼欄位填入，按 <span class="ui">進入教室</span>。</li>
+            </ul>
+            <p>打開加入頁面時，系統會問你要用哪個身分加入：</p>
+            <ul>
+              <li><b>使用我的帳號：</b>登入或註冊後加入，紀錄會跟著帳號，之後隨時能回來看。</li>
+              <li><b>以訪客身分加入：</b>不需註冊，填一個名字（課堂中會顯示給老師看）並勾選同意條款，就能開始對話。訪客只參加這一場活動，活動結束 24 小時後失效。</li>
+            </ul>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/student-classroom.jpg" alt="學生看到的教室頁：目前的主題與進入討論按鈕" width="800" height="500" loading="lazy" /></div>
+              <figcaption>加入班級後的教室頁。有進行中的活動時會出現「進入討論」。</figcaption>
+            </figure>
+          </article>
+
+          <article class="step" id="u-dialogue">
+            <h3><span class="n">S2</span>參加課堂討論</h3>
+            <ol>
+              <li>進入教室，在「目前的主題」按 <span class="ui pri">進入討論</span>。首頁的「教室動態」也會列出進行中的活動。</li>
+              <li>蘇格拉底會先提出這次的命題，下方有幾個建議的回應按鈕，不知道怎麼開始時可以直接點。</li>
+              <li>在最下方的輸入框打字，按 <kbd>Enter</kbd> 或右邊的送出鍵送出；也可以按麥克風按鈕用說的。</li>
+              <li>蘇格拉底每次只回幾句，而且會用問題結尾。試著回答他的追問、說出你的理由，這正是報告會看的地方。</li>
+            </ol>
+            <p>右上角的蘇格拉底 3D 頭像會隨著回答變換表情、念出回答時會對嘴。可以上下拖曳調整位置，或按「&gt;」收合。</p>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/dialogue.jpg" alt="課堂對話畫面：學生的回答與蘇格拉底的追問" width="800" height="500" loading="lazy" /></div>
+              <figcaption>課堂對話：右邊是你的回答，左邊是蘇格拉底的追問。</figcaption>
+            </figure>
+          </article>
+
+          <article class="step" id="u-tools">
+            <h3><span class="n">S3</span>順帶一問與查詢</h3>
+            <p>對話畫面右上角有兩個小工具：</p>
+            <ul>
+              <li><b>順帶一問：</b>暫時離開蘇格拉底，問個定義或背景，例如「電車難題是什麼？」。會在右側打開一個側欄，蘇格拉底看不到這裡的內容，也不會算進報告。按「新話題」可以重新開始。也可以在主輸入框打 <kbd>/btw 你的問題</kbd> 直接開啟。</li>
+              <li><b>查詢：</b>在對話中框選一個詞，就能查詢它的精確定義。查過的詞會留在查詢紀錄裡。</li>
+            </ul>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/btw.jpg" alt="順帶一問的側欄" width="800" height="500" loading="lazy" /></div>
+              <figcaption>「順帶一問」側欄，和主對話分開。</figcaption>
+            </figure>
+          </article>
+
+          <article class="step" id="u-chat">
+            <h3><span class="n">S4</span>自由提問</h3>
+            <p>不用等上課，點左側的 <span class="ui">提問</span>（或首頁的 <span class="ui pri">開始對話</span>），就能自己和蘇格拉底聊任何想釐清的問題。</p>
+            <ul>
+              <li>在中間的輸入框打下你的問題，<kbd>Enter</kbd> 送出、<kbd>Shift</kbd> + <kbd>Enter</kbd> 換行；也可以點下方的建議題目。</li>
+              <li>左側清單會保存你過去的對話，可以搜尋，點一下就能接著聊。</li>
+            </ul>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/solo-chat.jpg" alt="提問頁：新對話輸入框與過去的對話清單" width="800" height="500" loading="lazy" /></div>
+              <figcaption>「提問」頁：左邊是對話紀錄，中間開始新的對話。</figcaption>
+            </figure>
+          </article>
+
+          <article class="step" id="u-report">
+            <h3><span class="n">S5</span>查看我的報告</h3>
+            <p>老師結束活動後，報告會自動產生。到 <span class="ui">教室</span> 頁，展開下方的 <span class="ui">我的報告</span>，就能看到你在每個班的報告，包括已經離開的班級。</p>
+            <p>學生只會看到自己的報告：立場落點、思辨表現六角圖與論點總結。認真度只有在老師選擇公開時才會出現。</p>
+            <figure class="shot">
+              <div class="frame"><img src="assets/guide/report-student.jpg" alt="單人報告：立場落點與思辨表現" width="800" height="500" loading="lazy" /></div>
+              <figcaption>個人報告的開頭：你的立場落點與思辨表現。</figcaption>
+            </figure>
+          </article>
+        </section>
+
+        <section class="part" id="other" aria-labelledby="other-h">
+          <div class="part-head"><span class="tag">其他</span><h2 id="other-h">設定與常見問題</h2></div>
+
+          <article class="step" id="o-settings">
+            <h3><span class="n">01</span>設定</h3>
+            <p>點左下角的頭像，選擇「設定」。設定分成三類：</p>
+            <div class="tablewrap">
+              <table class="kv">
+                <tbody>
+                  <tr><th>一般</th><td>介面語言：繁體中文、English、Español。</td></tr>
+                  <tr><th>對話體驗</th><td>開關蘇格拉底 3D 模型；開關語音朗讀、調整音量，並選擇聲線（老爺爺或原聲）。</td></tr>
+                  <tr><th>API keys</th><td>老師可以接上自己的 AI 服務金鑰，優先用於自己的單人對話，以及自己開設的教室對話與報告；可以設定每月額度，用量到 60%、80%、100% 時會寄信提醒。沒有設定時使用平台預設的服務。</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="step" id="o-faq">
+            <h3><span class="n">02</span>常見問題</h3>
+            <ul>
+              <li><b>蘇格拉底為什麼一直反問，不給答案？</b>這就是蘇格拉底式詰問：透過追問幫你看清自己的想法、前提和理由。試著回答他的問題，而不是等答案。</li>
+              <li><b>邀請碼顯示無效或已過期？</b>請老師重新產生一條邀請連結，舊的可能已到期或被撤銷。</li>
+              <li><b>加入時說名字已被使用？</b>同一班不能有重複的名字，換一個名字再加入；用帳號加入的話，請切換帳號或聯絡老師。</li>
+              <li><b>活動結束後還能繼續對話嗎？</b>不行。老師結束活動後就不能再發言，但可以去看報告，或到「提問」自由對話。</li>
+              <li><b>我的對話會被拿去做什麼？</b>平台預設使用的 AI 服務都採零資料保留（ZDR）政策，系統日誌也不含對話內容。</li>
+            </ul>
+          </article>
+        </section>
+      </main>
+    </div>
 
     <footer>
-      <div class="wrap">
-        <span data-i18n="footer">© 2026 NTNU 軟體工程第四組</span>
+      <div class="in">
+        <span>© 2026 NTNU 軟體工程第四組</span>
         <nav aria-label="Links">
-          <a href="https://socrates.g36maid.dev/" data-i18n="nav_app">進入教室</a>
+          <a href="https://socrates.g36maid.dev/">進入教室</a>
           <a href="https://github.com/ntnu-swe-2026-team4/socrates-classroom">GitHub</a>
-          <a href="https://github.com/ntnu-swe-2026-team4/socrates-classroom/tree/main/docs" data-i18n="nav_docs">文件</a>
         </nav>
       </div>
     </footer>
-
-    <script>
-      (function () {
-        var dict = {
-          en: {
-            skip: "Skip to main content",
-            brand: "Enji · Socrates Classroom",
-            eyebrow: "NTNU Software Engineering · 2026 · Team 4",
-            title: "Philosophical dialogue the whole class can join",
-            lede: "Enji is a teaching platform built around Socratic questioning. Each student talks one-on-one with an AI Socrates, who never hands out answers and only asks the questions that help you think clearly. Teachers open classrooms, post topics, and get a report on every student and the class as a whole.",
-            cta_try: "Open the classroom",
-            cta_code: "View the source on GitHub",
-            quote: "“The unexamined life is not worth living.”",
-            quote_who: "Socrates, Apology 38a",
-            how_title: "How a class runs",
-            how_lede: "From opening a class to reading the report, an activity takes three steps.",
-            step1_t: "The teacher opens a class and a topic",
-            step1_p: "Create a classroom and share its invite code or QR code. Pick a topic from the topic set, write your own, or let the AI suggest some, then start an activity.",
-            step2_t: "Students talk with Socrates",
-            step2_p: "Students type or speak. Socrates replies in a few sentences and always ends with a question, leading them to examine their own premises and reasoning.",
-            step3_t: "Read the reports afterwards",
-            step3_p: "When the activity ends, reports are generated: each student gets an argument summary and a critical-thinking hexagon, and the class report maps everyone's stance on a star map.",
-            feat_title: "Features",
-            f1_t: "Socratic dialogue",
-            f1_p: "Streamed one-on-one dialogue. Socrates questions rather than lectures. Transcripts are kept, so a dropped connection picks up where it left off.",
-            f2_t: "Voice and a 3D avatar",
-            f2_p: "Ask out loud and have Socrates read the answer back. A 3D bust in the corner changes expression with the tone and lip-syncs as it speaks.",
-            f3_t: "Side questions and term lookup",
-            f3_p: "Select an unfamiliar term to look it up, or open the “by the way” side panel for background. Neither interrupts the main dialogue or counts toward the report.",
-            f4_t: "Critical-thinking hexagon",
-            f4_p: "The personal report shows six critical-thinking goals. Each one gets a level, a one-line justification, and the dialogue lines it is based on. It is not a score.",
-            f5_t: "Stance star map",
-            f5_p: "Plot the whole class on one to three stance axes, rotate the view, cluster automatically, and click a point to see that student's position on each axis.",
-            f6_t: "Classroom community and calendar",
-            f6_p: "Every classroom has announcements, discussion threads, a member list, and a month and week calendar. Teachers can schedule a topic and start it right from the event.",
-            roles_title: "For teachers and for students",
-            teacher_t: "Teachers",
-            teacher_1: "Create classrooms and invite students by code, link, or QR code",
-            teacher_2: "Try a topic yourself in test mode before class",
-            teacher_3: "Read the class report plus each student's analysis and engagement",
-            teacher_4: "Bring your own AI model keys, with monthly budget alerts",
-            student_t: "Students",
-            student_1: "Join a class with an invite code, or join an activity as a guest without signing up",
-            student_2: "Talk with Socrates any time, not only during class",
-            student_3: "Review your own results in every class under “My reports”",
-            student_4: "The interface comes in Chinese, English, and Spanish, with a dark mode",
-            tech_title: "Technology and privacy",
-            tech_lede: "The whole system is one application on Cloudflare Workers: a single Worker serves both the API and the web pages, and each dialogue is run by its own Durable Object.",
-            privacy: "Student dialogue is sensitive. The model services the platform uses by default all have zero data retention (ZDR) policies, AI Gateway logging and caching stay off, and system logs never contain dialogue content.",
-            footer: "© 2026 NTNU Software Engineering Team 4",
-            nav_app: "Open the classroom",
-            nav_docs: "Docs",
-            doc_title: "Enji · Socrates Classroom",
-          },
-          es: {
-            skip: "Ir al contenido principal",
-            brand: "Enji · Aula Socrática",
-            eyebrow: "NTNU Ingeniería de Software · 2026 · Equipo 4",
-            title: "Un diálogo filosófico en el que participa toda la clase",
-            lede: "Enji es una plataforma docente basada en el método socrático. Cada estudiante conversa a solas con un Sócrates de IA que nunca da respuestas: solo hace las preguntas que ayudan a pensar con claridad. El profesorado abre aulas, propone temas y recibe un informe de cada estudiante y de la clase.",
-            cta_try: "Entrar al aula",
-            cta_code: "Ver el código en GitHub",
-            quote: "«Una vida sin examen no merece ser vivida.»",
-            quote_who: "Sócrates, Apología 38a",
-            how_title: "Cómo funciona una clase",
-            how_lede: "Desde abrir el aula hasta leer el informe, una actividad tiene tres pasos.",
-            step1_t: "El profesor abre un aula y un tema",
-            step1_p: "Crea un aula y comparte su código de invitación o código QR. Elige un tema del banco, escribe uno propio o pide sugerencias a la IA, y empieza una actividad.",
-            step2_t: "Los estudiantes dialogan con Sócrates",
-            step2_p: "Los estudiantes escriben o hablan. Sócrates responde en pocas frases y siempre termina con una pregunta, para que examinen sus propias premisas y razonamientos.",
-            step3_t: "Después, los informes",
-            step3_p: "Al terminar la actividad se generan informes: cada estudiante recibe un resumen de sus argumentos y un hexágono de pensamiento crítico, y el informe de clase sitúa la postura de todos en un mapa estelar.",
-            feat_title: "Funciones",
-            f1_t: "Diálogo socrático",
-            f1_p: "Diálogo individual en tiempo real. Sócrates pregunta en lugar de sermonear. Las conversaciones se guardan, así que tras una desconexión se retoman donde quedaron.",
-            f2_t: "Voz y avatar 3D",
-            f2_p: "Pregunta en voz alta y deja que Sócrates lea la respuesta. Un busto 3D en la esquina cambia de expresión con el tono y mueve los labios al hablar.",
-            f3_t: "Preguntas al margen y glosario",
-            f3_p: "Selecciona un término desconocido para consultarlo, o abre el panel lateral «por cierto» para pedir contexto. Ninguno interrumpe el diálogo ni cuenta para el informe.",
-            f4_t: "Hexágono de pensamiento crítico",
-            f4_p: "El informe personal muestra seis objetivos de pensamiento crítico, cada uno con un nivel, una justificación breve y las líneas del diálogo en que se basa. No es una nota.",
-            f5_t: "Mapa estelar de posturas",
-            f5_p: "Sitúa a toda la clase en uno a tres ejes de postura, gira la vista, agrupa automáticamente y pulsa un punto para ver la postura de ese estudiante en cada eje.",
-            f6_t: "Comunidad y calendario del aula",
-            f6_p: "Cada aula tiene anuncios, hilos de discusión, lista de miembros y un calendario mensual y semanal. El profesorado puede programar un tema y empezarlo desde el propio evento.",
-            roles_title: "Para profesores y para estudiantes",
-            teacher_t: "Profesorado",
-            teacher_1: "Crea aulas e invita a estudiantes con un código, enlace o código QR",
-            teacher_2: "Prueba un tema en modo de prueba antes de clase",
-            teacher_3: "Lee el informe de clase y el análisis y la implicación de cada estudiante",
-            teacher_4: "Usa tus propias claves de modelos de IA, con avisos de presupuesto mensual",
-            student_t: "Estudiantes",
-            student_1: "Únete a una clase con un código, o participa como invitado sin registrarte",
-            student_2: "Habla con Sócrates cuando quieras, no solo en clase",
-            student_3: "Revisa tus resultados de cada clase en «Mis informes»",
-            student_4: "La interfaz está en chino, inglés y español, con modo oscuro",
-            tech_title: "Tecnología y privacidad",
-            tech_lede: "Todo el sistema es una sola aplicación en Cloudflare Workers: un único Worker sirve la API y las páginas web, y cada diálogo lo gestiona su propio Durable Object.",
-            privacy: "Los diálogos de los estudiantes son sensibles. Los servicios de modelos que la plataforma usa por defecto tienen políticas de retención cero (ZDR), el registro y la caché de AI Gateway están desactivados y los registros del sistema nunca contienen diálogos.",
-            footer: "© 2026 NTNU Ingeniería de Software, Equipo 4",
-            nav_app: "Entrar al aula",
-            nav_docs: "Documentación",
-            doc_title: "Enji · Aula Socrática",
-          },
-        };
-        var nodes = document.querySelectorAll("[data-i18n]");
-        var base = {};
-        nodes.forEach(function (n) {
-          base[n.dataset.i18n] = n.textContent;
-        });
-        base.doc_title = document.title;
-        var buttons = document.querySelectorAll(".langs button");
-
-        function pick() {
-          var q = new URLSearchParams(location.search).get("lang");
-          var stored = null;
-          try {
-            stored = localStorage.getItem("lang");
-          } catch {}
-          var want = q || stored || navigator.language || "zh-Hant";
-          if (/^en/i.test(want)) return "en";
-          if (/^es/i.test(want)) return "es";
-          return "zh-Hant";
-        }
-
-        function apply(lang) {
-          var d = dict[lang] || base;
-          nodes.forEach(function (n) {
-            n.textContent = d[n.dataset.i18n] || base[n.dataset.i18n];
-          });
-          document.title = d.doc_title;
-          document.documentElement.lang = lang;
-          buttons.forEach(function (b) {
-            b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
-          });
-        }
-
-        buttons.forEach(function (b) {
-          b.addEventListener("click", function () {
-            try {
-              localStorage.setItem("lang", b.dataset.lang);
-            } catch {}
-            apply(b.dataset.lang);
-          });
-        });
-        apply(pick());
-      })();
-    </script>
   </body>
 </html>
